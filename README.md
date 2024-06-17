@@ -1,6 +1,9 @@
 # GrowthPurple Company Task Assignment
 Speech to Speech Voice assistant using Python Using Local LLM(Large Language Models)
 
+Working demos:
+https://drive.google.com/drive/folders/1EX4Enz-yZgP-DpcWRbgNGRmHfTSaCOPe?usp=sharing
+
 Overview:
 
 This project involves creating a voice assistant named "Andy" using Python. The assistant listens for voice commands, processes them using a local large language model (LLM), and responds with appropriate actions. Key functionalities include adding tasks, listing tasks, taking screenshots, opening web pages, and answering questions using the LLM.
