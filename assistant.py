@@ -10,7 +10,8 @@ import pyautogui
 import webbrowser
 import os
 
-model = GPT4All("/Users/nani/Downloads/Python-main/LocalGPT/Mistral7bOpenorca.gguf", allow_download=False)
+# Initialize the local LLM
+model = GPT4All("/path/to/your/local/model", allow_download=False)
 assistant_name = "andy"
 listening_for_trigger_word = True
 should_run = True
@@ -19,6 +20,7 @@ recognizer = sr.Recognizer()
 base_model_path = os.path.expanduser('~/.cache/whisper/tiny.pt')
 base_model = whisper.load_model(base_model_path)
 
+# Initialize text-to-speech engine for non-macOS systems
 if sys.platform != 'darwin':
     import pyttsx3
     engine = pyttsx3.init() 
@@ -28,6 +30,7 @@ listeningToTask = False
 askingAQuestion = False
 
 def respond(text):
+    """Convert text to speech."""
     if sys.platform == 'darwin':
         ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,?!-_$:+-/ ")
         clean_text = ''.join(c for c in text if c in ALLOWED_CHARS)
@@ -37,6 +40,7 @@ def respond(text):
         engine.runAndWait()
 
 def listen_for_command():
+    """Listen for voice commands and transcribe them."""
     with source as s:
         print("Listening for commands...")
         recognizer.adjust_for_ambient_noise(source)
@@ -58,6 +62,7 @@ def listen_for_command():
         return None
 
 def perform_command(command):
+    """Perform actions based on the transcribed command."""
     global tasks
     global listeningToTask
     global askingAQuestion
@@ -68,7 +73,7 @@ def perform_command(command):
         if listeningToTask:
             tasks.append(command)
             listeningToTask = False
-            respond("Adding " + command + " to your task list. You have " + str(len(tasks)) + " currently in your list.")
+            respond(f"Adding {command} to your task list. You have {len(tasks)} tasks currently in your list.")
         elif "add a task" in command:
             listeningToTask = True
             respond("Sure, what is the task?")
@@ -81,7 +86,7 @@ def perform_command(command):
             respond("I took a screenshot for you.")
         elif "open chrome" in command:
             respond("Opening Chrome.")
-            webbrowser.open("http://www.youtube.com/")
+            webbrowser.open("http://www.google.com/")
         elif "ask a question" in command:
             askingAQuestion = True
             respond("What's your question?")
@@ -100,6 +105,7 @@ def perform_command(command):
     listening_for_trigger_word = True
 
 def main():
+    """Main loop to keep the assistant running."""
     global listening_for_trigger_word
     while should_run:
         command = listen_for_command()
