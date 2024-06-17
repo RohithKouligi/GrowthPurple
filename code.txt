@@ -2,9 +2,9 @@ Required Modules
 
 os: For interacting with the operating system.
 speech_recognition: For recognizing speech input from the microphone.
-gpt4all: For using a local LLM.
+gpt4all: For using a local LLM. note: in this project i used the mistral-7b-openorca.gguf2.Q4_0.gguf file model
 sys: For system-specific parameters and functions.
-whisper: For transcribing audio files.
+whisper: For transcribing audio files.(I have been used the tiny model for the implementation)
 warnings: To manage warning messages.
 time: For time-related functions.
 pyautogui: For GUI automation (e.g., taking screenshots).
